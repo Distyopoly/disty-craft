@@ -1,9 +1,13 @@
-{ pkgs, _lib, _config, _inputs, ... }:
+{
+  pkgs,
+  _lib,
+  _config,
+  _inputs,
+  ...
+}:
 {
   # https://devenv.sh/packages/
-  packages = [
-    pkgs.git-cliff
-  ];
+  packages = [ pkgs.git-cliff ];
 
   # https://devenv.sh/languages/
   languages.javascript = {
@@ -23,9 +27,9 @@
         deadnix.enable = true;
         # statix check highlights antipatterns in Nix code. statix fix can fix several such occurrences.
         statix.enable = true;
-      
+
         # sorted things
-        keep-sorted.enable = true; 
+        keep-sorted.enable = true;
       };
       settings.formatter = {
         deadnix = {
@@ -44,7 +48,6 @@
     };
   };
 
-
   # See full reference at https://devenv.sh/reference/options/
 
   # You can add a development script to run vite
@@ -62,7 +65,6 @@
 
   # https://devenv.sh/services/
   # services.postgres.enable = true;
-
 
   # https://devenv.sh/basics/
   # enterShell = ''
