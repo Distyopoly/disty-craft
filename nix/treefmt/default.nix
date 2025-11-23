@@ -10,6 +10,8 @@
       # statix check highlights antipatterns in Nix code. statix fix can fix several such occurrences.
       statix.enable = true;
 
+      yamlfmt.enable = true;
+
       # sorted things
       keep-sorted.enable = true;
     };
@@ -25,6 +27,14 @@
 
       nixfmt = {
         priority = 3;
+      };
+
+      yamlfmt = {
+        priority = 4;
+        includes = [
+          "*.yaml"
+          "*.yml"
+        ];
       };
     };
   };
