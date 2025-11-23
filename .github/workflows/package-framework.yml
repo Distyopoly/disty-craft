@@ -1,0 +1,34 @@
+name: Packaging the framework
+run-name: ${{ github.actor }} packaging your framework 🚀
+permissions:
+  contents: write
+on:
+  push:
+    tags:
+      - "v*.*.*"
+jobs:
+  package-framework:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        #   - name: Build
+        #     run: echo '${{ github.ref_name }}-${{ github.sha }}' > Release.txt
+        #   - name: Test
+        #     run: cat Release.txt
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: --verbose
+        env:
+          OUTPUT: CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
+      - name: Zip
+        run: zip -r 'framework.zip' disty-craft-framework
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          files: framework.zip
+          body_path: CHANGELOG.md
