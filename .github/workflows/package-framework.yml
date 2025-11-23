@@ -1,8 +1,11 @@
 name: Packaging the framework
 run-name: ${{ github.actor }} packaging your framework 🚀
 
-on: push
+permissions:
+  contents: write
 
+
+on: push
 jobs:
   package-framework:
     runs-on: ubuntu-latest
