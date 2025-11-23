@@ -1,7 +1,7 @@
 {
   pkgs,
   _lib,
-  _config,
+  config,
   _inputs,
   ...
 }:
@@ -48,10 +48,12 @@
     };
   };
 
-  # See full reference at https://devenv.sh/reference/options/
+  processes.framework = {
+    exec = "pnpm dev";
+    cwd = "${config.git.root}/disty-craft-framework";
+  };
 
-  # You can add a development script to run vite
-  scripts.dev.exec = "vite";
+  # See full reference at https://devenv.sh/reference/options/
 
   # https://devenv.sh/scripts/
   # scripts.hello.exec = ''
