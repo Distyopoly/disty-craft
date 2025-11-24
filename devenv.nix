@@ -16,16 +16,6 @@
       package = pkgs.nodejs_22;
       pnpm.enable = true;
     };
-
-    python = {
-      enable = true;
-      package = pkgs.python314;
-      directory = "./distyctl";
-
-      uv = {
-        enable = true;
-      };
-    };
   };
 
   treefmt = import ./nix/treefmt;
