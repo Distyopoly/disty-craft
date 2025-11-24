@@ -7,7 +7,10 @@
 }:
 {
   # https://devenv.sh/packages/
-  packages = [ pkgs.git-cliff ];
+  packages = [
+    pkgs.git
+    pkgs.git-cliff
+  ];
 
   # https://devenv.sh/languages/
   languages = {
