@@ -24,8 +24,8 @@ jobs:
         env:
           OUTPUT: CHANGELOG.md
           GITHUB_REPO: ${{ github.repository }}
-      - name: Zip
-        run: zip -r 'framework.zip' disty-craft-framework
+      # - name: Zip
+      #   run: zip -r 'framework.zip' disty-craft-framework
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
