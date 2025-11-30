@@ -9,7 +9,6 @@
   packages = [
     pkgs.git
     pkgs.git-cliff
-    pkgs.commitizen
   ];
 
   dotenv.disableHint = true;
@@ -29,13 +28,23 @@
     framework-install.exec = "pnpm install";
   };
 
-  processes = {
-    dev.exec = "pnpm dev --port 5173";
-  };
-
   profiles = {
-    hostname."leswell-nixos".module = {
-      imports = [ ./nix/nginx ];
-    };
+    hostname."leswell-nixos".module =
+      let
+        dev-port = "5173";
+      in
+      {
+        # imports = [ ./nix/nginx ];
+
+        packages = [
+          pkgs.commitizen
+          pkgs.nodePackages.localtunnel # will need to rewrite in future update, is already available in upstream: pkgs.localtunnel
+        ];
+
+        processes = {
+          localtunnel.exec = "lt --port ${dev-port}";
+          dev.exec = "pnpm dev --port ${dev-port}";
+        };
+      };
   };
 }
