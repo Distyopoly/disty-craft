@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import styles from './style.module.css'
-import { useVideoCall } from "@/lib/videoCall/useVideoCall";
+import { useVideoCall } from "lib/videoCall/useVideoCall";
  
 type Params = Promise<{ slug: string }>;
 
