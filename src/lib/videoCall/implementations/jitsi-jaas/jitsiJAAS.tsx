@@ -1,8 +1,10 @@
+"use client"
 // lib/videoCall/sdkA.ts
-import { VideoCallStrategy } from "../strategy";
+import { VideoCallStrategy } from "../../strategy";
 import dynamic from "next/dynamic";
-import { VideoCallProps } from "../types/VideoCallProps";
-
+import { VideoCallProps } from "../../types/VideoCallProps";
+// import { env } from "@/src/env/client";
+import { get_jwt } from "./jwt-provider";
 
 
 const JaaSMeeting = dynamic(
@@ -13,11 +15,19 @@ const JaaSMeeting = dynamic(
 
 
 function VideoCallComponent(props: VideoCallProps) {
+  const jwt = get_jwt();
+  console.log("process.env at build time:", process.env);
+
+  const jitsiJaasAppId = process.env.NEXT_PUBLIC_JITSI_JAAS_APP_ID;
+
+  if (jitsiJaasAppId === undefined) {
+    throw new Error("Environment variable NEXT_PUBLIC_JITSI_JAAS_APP_ID is missing");
+  }
 
   return (<JaaSMeeting
-                appId = { "vpaas-magic-cookie-f466dd70740f420b8d25cfc96e6718da" }
-                roomName = "PleaseUseAGoodRoomName"
-                jwt = { props.jwt }
+                appId = { jitsiJaasAppId }
+                roomName = { props.roomName }
+                jwt = { jwt }
                 configOverwrite = {{
                     disableLocalVideoFlip: true,
                     backgroundAlpha: 0.5
@@ -32,7 +42,7 @@ function VideoCallComponent(props: VideoCallProps) {
   
 };
 
-export class JitsyJAASStrategy implements VideoCallStrategy {
+export class JitsiJAASStrategy implements VideoCallStrategy {
   async init() {
     // await import("sdk-a"); // dynamic import for client-only SDK
   }
