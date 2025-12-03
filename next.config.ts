@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
   },
+  experimental : {
+    optimizePackageImports: ["@chakra-ui/react"],
+  }
 };
 
 export default nextConfig;
